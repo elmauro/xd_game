@@ -9,7 +9,7 @@ window.onload = function () {
     var cubo5;
     var cubo6;
     var cubo7;
-
+    var cubo8;
     var cursors;
 
 
