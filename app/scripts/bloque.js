@@ -1,12 +1,12 @@
 TETRIS.bloque = function () {
 	this.tipo_bloque = [
+		'L',
+		'T',
+		'CUADRO',
+		'LINEA',
 	    'J',
-	    'L',
-	    'T',
-	    'Z',
 	    'S',
-	    'LINEA',
-	    'CUADRO'
+	    'Z'
 	];
 
 	this.tipo_movimiento = [
@@ -70,7 +70,7 @@ TETRIS.bloque = function () {
 	    proximo = 6
 	  }
 
-	  this.tipobloque = this.tipo_bloque[1];
+	  this.tipobloque = this.tipo_bloque[0];
 	  this.crearUbicacionCuadros()
 	}
 
