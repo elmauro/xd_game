@@ -75,7 +75,7 @@ TETRIS.bloque = function () {
 	}
 
 	this.desplazarBloqueIzquierda = function(){
-	  //if tablero_tetris:PuedeDesplazarse(bloque.enumTipoMovimiento[1], self.cuadros) {
+	  if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[0], this.cuadros)) {
 		    this.ocultarBloque()
 
 		    i = 0
@@ -86,11 +86,11 @@ TETRIS.bloque = function () {
 
 		    this.mostrarBloque();
 		    this.ubicacion = this.cuadros[0].ubicacion;
-	  //}
+	  }
 	}
 
 	this.desplazarBloqueDerecha = function(){
-	  //if tablero_tetris:PuedeDesplazarse(bloque.enumTipoMovimiento[1], self.cuadros) {
+	  if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[1], this.cuadros)) {
 		    this.ocultarBloque()
 
 		    i = 0
@@ -101,11 +101,11 @@ TETRIS.bloque = function () {
 
 		    this.mostrarBloque();
 		    this.ubicacion = this.cuadros[0].ubicacion;
-	  //}
+	  }
 	}
 
 	this.desplazarBloqueAbajo = function(){
-		//if (tablero_tetris.PuedeDesplazarse(bloque.enumTipoMovimiento[3], self.cuadros)) {
+		if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[2], this.cuadros)) {
 			this.ocultarBloque();
 
 			i = 0
@@ -116,13 +116,13 @@ TETRIS.bloque = function () {
 
 			this.mostrarBloque()
 			this.ubicacion = this.cuadros[0].ubicacion;
-		/*}
+		}
 		else
 		{
-			tablero_tetris:IngresarCuadradosMatriz(self.cuadros)
-			tetris:DetenerCuadrado()
-			self.detenido = true*/
-		//}
+			tablero_tetris.ingresarCuadradosMatriz(this.cuadros)
+			//tetris:DetenerCuadrado()
+			this.detenido = true
+		}
 	}
 
 	this.crearUbicacionCuadros = function(){
@@ -132,10 +132,10 @@ TETRIS.bloque = function () {
 		cuadrado3 = new TETRIS.cuadrado();
 		cuadrado4 = new TETRIS.cuadrado();
 
-		cuadrado1.crear(this.game, 20, this.color)
-		cuadrado2.crear(this.game, 20, this.color)
-		cuadrado3.crear(this.game, 20, this.color)
-		cuadrado4.crear(this.game, 20, this.color)
+		cuadrado1.crear(this.game, 40, this.color)
+		cuadrado2.crear(this.game, 40, this.color)
+		cuadrado3.crear(this.game, 40, this.color)
+		cuadrado4.crear(this.game, 40, this.color)
 
 		this.cuadros.push(cuadrado1);
 		this.cuadros.push(cuadrado2);
@@ -229,7 +229,7 @@ TETRIS.bloque = function () {
 			}
 			else if (this.tipobloque == "L") {
 				this.rotarL(this.tiporotacion);
-				//this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
 			}	
 			else if (this.tipobloque == "Z") {
 				this.rotarZ(this.tiporotacion);
@@ -253,13 +253,13 @@ TETRIS.bloque = function () {
 	}
 
 	this.revertir = function(anterior1, anterior2, anterior3, anterior4, anteriorRot){
-		//if (tablero_tetris.PuedeRotar(self.cuadros) == false) {
+		if (tablero_tetris.puedeRotar(this.cuadros) == false) {
 			this.cuadros[0].ubicacion = anterior1;
 			this.cuadros[1].ubicacion = anterior2;
 			this.cuadros[2].ubicacion = anterior3;
 			this.cuadros[3].ubicacion = anterior4;
 			this.tiporotacion = anteriorRot;
-		//}
+		}
 	}
 
 	this.rotarJ = function(rot){
@@ -425,78 +425,78 @@ TETRIS.bloque = function () {
 	}
 
 	this.unoArriba = function(){
-		return { X:this.ubicacion.X, Y:this.ubicacion.Y - 40 };
+		return { X:this.ubicacion.X, Y:this.ubicacion.Y - 1 };
 	}
 
 	this.unoArribaUnoDerecha = function(){
-	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y - 40 };
+	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y - 1 };
 	}
 
 	this.unoArribaUnoIzquierda = function(){
-	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y - 40 };
+	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 };
 	}
 
 	this.unoAbajo = function(){
-		return { X:this.ubicacion.X, Y:this.ubicacion.Y + 40 };
+		return { X:this.ubicacion.X, Y:this.ubicacion.Y + 1 };
 	}
 
 	this.dosAbajo = function(){
-	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (40 * 2) };
+	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 2) };
 	}
 
 	this.dosAbajoUnoDerecha = function(){
-	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y + (40 * 2) };
+	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y + (1 * 2) };
 	}
 
 	this.dosAbajoUnoIzquierda = function(){
-	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y + (40 * 2) };
+	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + (1 * 2) };
 	}
 
 	this.tresAbajo = function(){
-	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (40 * 3) };
+	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 3) };
 	}
 
 	this.unoDerecha = function(){
-	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y }
+	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y }
 	}
 
 	this.dosDerecha = function(){
-	  return { X:this.ubicacion.X + (40 * 2), Y:this.ubicacion.Y };
+	  return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y };
 	}
 
 	this.tresDerecha = function(){
-	  return { X:this.ubicacion.X + (40 * 3), Y:this.ubicacion.Y }
+	  return { X:this.ubicacion.X + (1 * 3), Y:this.ubicacion.Y }
 	}
 
 	this.unoDerechaUnoAbajo = function(){
-		return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y + 40 };
+		return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y + 1 };
 	}
 
 	this.dosDerechaUnoAbajo = function(){
-	  return { X:this.ubicacion.X + (40 * 2), Y:this.ubicacion.Y + 40 }
+	  return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y + 1 }
 	}
 
 	this.unoIzquierda = function(){
-	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y }
+	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y }
 	}
 
 	this.dosIzquierda = function(){
-	  return { X:this.ubicacion.X - (40 * 2), Y:this.ubicacion.Y }
+	  return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y }
 	}
 
 	this.tresIzquierda = function(){
-	  return { X:this.ubicacion.X - (40 * 3), Y:this.ubicacion.Y }
+	  return { X:this.ubicacion.X - (1 * 3), Y:this.ubicacion.Y }
 	}
 
 	this.unoIzquierdaUnoAbajo = function(){
-	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y + 40 }
+	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + 1 }
 	}
 
 	this.unoIzquierdaUnoArriba = function(){
-	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y - 40 }
+	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 }
 	}
 
 	this.dosIzquierdaUnoAbajo = function(){
-	  return { X:this.ubicacion.X - (40 * 2), Y:this.ubicacion.Y + 40 }
+	  return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y + 1 }
 	}
 };

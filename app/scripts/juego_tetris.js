@@ -3,7 +3,6 @@ window.onload = function () {
     var game = new Phaser.Game(400, 800, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
     
     //declaramos las variables globales del juego
-    var bloque;
     var cursors;
     var rightdown;
     var leftdown;
@@ -23,8 +22,11 @@ window.onload = function () {
 
     function create() {
         //personaje
+        tablero_tetris = new TETRIS.tablero();
+        tablero_tetris.crear();
+
         bloque = new TETRIS.bloque();
-        bloque.crearAleatorio(game, { X:0, Y:40 });
+        bloque.crearAleatorio(game, { X:0, Y:1 });
         bloque.aleatorio();
         bloque.mostrarBloque();
 
