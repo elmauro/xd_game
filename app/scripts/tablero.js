@@ -23,7 +23,7 @@ TETRIS.tablero = function () {
 				this.matriz[i][j] = null;
 			}
 		}	
-	}
+	};
 
 	this.puedeRotar = function(cuadros){
 		i = 0;
@@ -32,12 +32,12 @@ TETRIS.tablero = function () {
 			if (cuadros[i].ubicacion.X == -1 || cuadros[i].ubicacion.X == 10 ||
 				cuadros[i].ubicacion.Y == -1 || cuadros[i].ubicacion.Y == 20 ||
 				this.matriz[cuadros[i].ubicacion.X][cuadros[i].ubicacion.Y] != null) {
-				return false
+				return false;
 			}
 			i = i + 1;
 		}
 		return true;
-	}
+	};
 
 	this.puedeDesplazarse = function(tipomovimiento, cuadros){
 		if (tipomovimiento == "IZQUIERDA") {
@@ -73,7 +73,7 @@ TETRIS.tablero = function () {
 			}
 		}
 		return true;
-	}
+	};
 
 	this.ingresarCuadradosMatriz = function(cuadros){
 		i = 0;
@@ -82,11 +82,11 @@ TETRIS.tablero = function () {
 			this.matriz[cuadros[i].ubicacion.X][cuadros[i].ubicacion.Y] = cuadros[i];
 			i = i + 1;
 		}
-	}
+	};
 
 	this.eliminarCuadradoMatriz = function(cuadro){
   		this.matriz[cuadro.ubicacion.X][cuadro.ubicacion.Y] = null;
-	}
+	};
 
 	this.consultarFilaLlena = function(){
 		filallena = 0;
@@ -106,7 +106,7 @@ TETRIS.tablero = function () {
 		}
 
 		return -1;
-	}
+	};
 
 	this.eliminarFilaLlena = function(fila){
 		for (y = fila - 1; y > 1; y--) {
@@ -120,7 +120,7 @@ TETRIS.tablero = function () {
 			fila = fila-1;
 		}
 		this.redibujar();
-	}
+	};
 
 	this.redibujar = function(){
 		game = new Phaser.Game(400, 800, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
@@ -134,5 +134,5 @@ TETRIS.tablero = function () {
 				}
 			}
 		}
-	}
+	};
 };

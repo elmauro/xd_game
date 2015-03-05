@@ -18,7 +18,7 @@ window.onload = function () {
 		game.load.image('VIOLET', '/images/T5-A_40x40.png');
 		game.load.image('BLUE', '/images/T6-A_40x40.png');
 		game.load.image('GREEN', '/images/T7-A_40x40.png');
-    }
+    };
 
     function create() {
         //personaje
@@ -31,7 +31,7 @@ window.onload = function () {
         bloque.mostrarBloque();
 
         cursors = game.input.keyboard.createCursorKeys();
-    }
+    };
     
     function update() {
         // añadimos eventos de moviemiento en caso de presionar algún boton del cursor
@@ -82,5 +82,5 @@ window.onload = function () {
         {
             down = false;
         }
-    }
+    };
 };

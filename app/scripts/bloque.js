@@ -23,10 +23,10 @@ TETRIS.bloque = function () {
 	];
 
 	this.colores = [
-	    'RED',
+	    'YELLOW',
 	    'GRAY',
 	    'AQUA',
-	    'YELLOW',
+	    'RED',
 	    'VIOLET',
 	    'BLUE',
 	    'GREEN'
@@ -37,7 +37,7 @@ TETRIS.bloque = function () {
 	this.cuadros;
 	
 	this.crear = function (ubicacion, tipobloque) {
-		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y }
+		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y };
 	    this.color = {};
 	    this.tipobloque = tipobloque;
 	    thid.tipomovimiento = {};
@@ -48,7 +48,7 @@ TETRIS.bloque = function () {
 	};
 
 	this.crearAleatorio = function (ubicacion) {
-		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y }
+		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y };
 	    this.color = {};
 	    this.tipobloque = {};
 	    this.tipomovimiento = {};
@@ -59,66 +59,66 @@ TETRIS.bloque = function () {
 	};
 
 	this.aleatorio = function(){
-	  proximo = Math.floor((Math.random() * 7) + 1);
+	  	proximo = Math.floor((Math.random() * 7) + 1);
 
-	  if(proximo == 7) {
-	    proximo = 6
-	  }
+	  	if(proximo == 7) {
+			proximo = 6;
+	  	}
 
-	  this.tipobloque = this.tipo_bloque[proximo];
-	  this.crearUbicacionCuadros()
-	}
+	  	this.tipobloque = this.tipo_bloque[proximo];
+	  	this.crearUbicacionCuadros()
+	};
 
 	this.desplazarBloqueIzquierda = function(){
 	  if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[0], this.cuadros)) {
-		    this.ocultarBloque()
+		    this.ocultarBloque();
 
-		    i = 0
+		    i = 0;
 		    while(i < 4) {
-		      this.cuadros[i].moverCuadradoIzquierda();
-		      i = i + 1
+	      		this.cuadros[i].moverCuadradoIzquierda();
+		      	i = i + 1;
 		    }
 
 		    this.mostrarBloque();
 		    this.ubicacion = this.cuadros[0].ubicacion;
 	  }
-	}
+	};
 
 	this.desplazarBloqueDerecha = function(){
 	  if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[1], this.cuadros)) {
-		    this.ocultarBloque()
+		    this.ocultarBloque();
 
-		    i = 0
+		    i = 0;
 		    while(i < 4) {
-		      this.cuadros[i].moverCuadradoDerecha();
-		      i = i + 1
+	      		this.cuadros[i].moverCuadradoDerecha();
+		      	i = i + 1;
 		    }
 
 		    this.mostrarBloque();
 		    this.ubicacion = this.cuadros[0].ubicacion;
 	  }
-	}
+	};
 
 	this.desplazarBloqueAbajo = function(){
 		if (tablero_tetris.puedeDesplazarse(this.tipo_movimiento[2], this.cuadros)) {
 			this.ocultarBloque();
 
-			i = 0
+			i = 0;
 			while(i < 4) {
 				this.cuadros[i].moverCuadradoAbajo();
 				i = i + 1;
 			}
 
-			this.mostrarBloque()
+			this.mostrarBloque();
 			this.ubicacion = this.cuadros[0].ubicacion;
 		}
 		else
 		{
-			tablero_tetris.ingresarCuadradosMatriz(this.cuadros)
+			tablero_tetris.ingresarCuadradosMatriz(this.cuadros);
 			//tetris:DetenerCuadrado()
-			this.detenido = true
+			this.detenido = true;
 		}
-	}
+	};
 
 	this.crearUbicacionCuadros = function(){
 		this.color = this.colores[this.tipo_bloque.indexOf(this.tipobloque)];
@@ -127,10 +127,10 @@ TETRIS.bloque = function () {
 		cuadrado3 = new TETRIS.cuadrado();
 		cuadrado4 = new TETRIS.cuadrado();
 
-		cuadrado1.crear(40, this.color)
-		cuadrado2.crear(40, this.color)
-		cuadrado3.crear(40, this.color)
-		cuadrado4.crear(40, this.color)
+		cuadrado1.crear(40, this.color);
+		cuadrado2.crear(40, this.color);
+		cuadrado3.crear(40, this.color);
+		cuadrado4.crear(40, this.color);
 
 		this.cuadros.push(cuadrado1);
 		this.cuadros.push(cuadrado2);
@@ -138,66 +138,65 @@ TETRIS.bloque = function () {
 		this.cuadros.push(cuadrado4);
 
 		if(this.tipobloque == "J") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoArriba()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
 		}
 		else if(this.tipobloque == "L") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoArriba()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
 		}
 		else if(this.tipobloque == "Z") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoIzquierda()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
 		}
 		else if(this.tipobloque == "CUADRO") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoDerecha()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
 		}
 		else if(this.tipobloque == "T") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoDerecha()
-			this.cuadros[2].ubicacion = this.unoIzquierda()
-			this.cuadros[3].ubicacion = this.unoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoIzquierda();
+			this.cuadros[3].ubicacion = this.unoAbajo();
 		}
 		else if(this.tipobloque == "S") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoDerecha()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
 		}
 		else if(this.tipobloque == "LINEA") {
-			this.cuadros[0].ubicacion = this.ubicacion
-			this.cuadros[1].ubicacion = this.unoArriba()
-			this.cuadros[2].ubicacion = this.unoAbajo()
-			this.cuadros[3].ubicacion = this.dosAbajo()
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.dosAbajo();
 		}
 							
-	}
-					
+	};				
 
 	this.mostrarBloque = function(){
-		i = 0
+		i = 0;
 	  	while(i < 4) {
 	    	this.cuadros[i].mostrar();
 	    	i = i + 1;
 	  	}
-	}
+	};
 
 	this.ocultarBloque = function(){
-	  	i = 0
+	  	i = 0;
 	  	while(i < 4) {
-	    	this.cuadros[i].ocultar()
-	    	i = i + 1
+	    	this.cuadros[i].ocultar();
+	    	i = i + 1;
 	  	}
-	}
+	};
 
 	this.rotarCuadros = function(){
 		if (this.detenido == false) {
@@ -209,8 +208,8 @@ TETRIS.bloque = function () {
 
 			this.ocultarBloque();
 
-			nuevarot = 0
-			nuevarot = this.tipo_rotacion.indexOf(this.tiporotacion) + 1
+			nuevarot = 0;
+			nuevarot = this.tipo_rotacion.indexOf(this.tiporotacion) + 1;
 
 			if (nuevarot > 3) {
 				nuevarot = 0;
@@ -245,7 +244,7 @@ TETRIS.bloque = function () {
 
 			this.mostrarBloque();
 		}
-	}
+	};
 
 	this.revertir = function(anterior1, anterior2, anterior3, anterior4, anteriorRot){
 		if (tablero_tetris.puedeRotar(this.cuadros) == false) {
@@ -255,7 +254,7 @@ TETRIS.bloque = function () {
 			this.cuadros[3].ubicacion = anterior4;
 			this.tiporotacion = anteriorRot;
 		}
-	}
+	};
 
 	this.rotarJ = function(rot){
 		if (rot == "NORTE") {
@@ -282,7 +281,7 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoDerecha();
 			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
 		}
-	}
+	};
 
 	this.rotarL = function(rot){
 		if (rot == "NORTE") {
@@ -309,7 +308,7 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoDerecha();
 			this.cuadros[3].ubicacion = this.unoArribaUnoDerecha();
 		}
-	}
+	};
 
 	this.rotarZ = function(rot){
 		if (rot == "NORTE") {
@@ -336,7 +335,7 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoArribaUnoDerecha();
 			this.cuadros[3].ubicacion = this.unoAbajo();
 		}
-	}
+	};
 
 	this.rotarS = function(rot){
 		if (rot == "NORTE") {
@@ -363,7 +362,7 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
 			this.cuadros[3].ubicacion = this.unoAbajo();
 		}
-	}
+	};
 
 	this.rotarT = function(rot){
 		if (rot == "NORTE") {
@@ -390,9 +389,9 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoAbajo();
 			this.cuadros[3].ubicacion = this.unoDerecha();
 		}
-	}
+	};
 
-	this.rotarRotarLinea = function(rot){
+	this.rotarLinea = function(rot){
 		if (rot == "NORTE") {
 			this.cuadros[0].ubicacion = this.ubicacion;
 			this.cuadros[1].ubicacion = this.unoArriba();
@@ -417,81 +416,81 @@ TETRIS.bloque = function () {
 			this.cuadros[2].ubicacion = this.unoDerecha();
 			this.cuadros[3].ubicacion = this.dosDerecha();
 		}
-	}
+	};
 
 	this.unoArriba = function(){
 		return { X:this.ubicacion.X, Y:this.ubicacion.Y - 1 };
-	}
+	};
 
 	this.unoArribaUnoDerecha = function(){
-	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y - 1 };
-	}
+	  	return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y - 1 };
+	};
 
 	this.unoArribaUnoIzquierda = function(){
-	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 };
-	}
+	  	return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 };
+	};
 
 	this.unoAbajo = function(){
 		return { X:this.ubicacion.X, Y:this.ubicacion.Y + 1 };
-	}
+	};
 
 	this.dosAbajo = function(){
-	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 2) };
-	}
+	  	return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 2) };
+	};
 
 	this.dosAbajoUnoDerecha = function(){
-	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y + (1 * 2) };
-	}
+	  	return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y + (1 * 2) };
+	};
 
 	this.dosAbajoUnoIzquierda = function(){
-	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + (1 * 2) };
-	}
+	  	return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + (1 * 2) };
+	};
 
 	this.tresAbajo = function(){
-	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 3) };
-	}
+	  	return { X:this.ubicacion.X, Y:this.ubicacion.Y + (1 * 3) };
+	};
 
 	this.unoDerecha = function(){
-	  return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y }
-	}
+	  	return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y }
+	};
 
 	this.dosDerecha = function(){
-	  return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y };
-	}
+	  	return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y };
+	};
 
 	this.tresDerecha = function(){
-	  return { X:this.ubicacion.X + (1 * 3), Y:this.ubicacion.Y }
-	}
+	  	return { X:this.ubicacion.X + (1 * 3), Y:this.ubicacion.Y }
+	};
 
 	this.unoDerechaUnoAbajo = function(){
 		return { X:this.ubicacion.X + 1, Y:this.ubicacion.Y + 1 };
-	}
+	};
 
 	this.dosDerechaUnoAbajo = function(){
-	  return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y + 1 }
-	}
+	  	return { X:this.ubicacion.X + (1 * 2), Y:this.ubicacion.Y + 1 }
+	};
 
 	this.unoIzquierda = function(){
-	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y }
-	}
+	  	return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y }
+	};
 
 	this.dosIzquierda = function(){
-	  return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y }
-	}
+	  	return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y }
+	};
 
 	this.tresIzquierda = function(){
-	  return { X:this.ubicacion.X - (1 * 3), Y:this.ubicacion.Y }
-	}
+	  	return { X:this.ubicacion.X - (1 * 3), Y:this.ubicacion.Y }
+	};
 
 	this.unoIzquierdaUnoAbajo = function(){
-	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + 1 }
-	}
+	  	return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y + 1 }
+	};
 
 	this.unoIzquierdaUnoArriba = function(){
-	  return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 }
-	}
+	  	return { X:this.ubicacion.X - 1, Y:this.ubicacion.Y - 1 }
+	};
 
 	this.dosIzquierdaUnoAbajo = function(){
-	  return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y + 1 }
-	}
+	  	return { X:this.ubicacion.X - (1 * 2), Y:this.ubicacion.Y + 1 }
+	};
 };

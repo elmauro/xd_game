@@ -19,16 +19,16 @@ TETRIS.cuadrado = function () {
 	};
 
 	this.moverCuadradoIzquierda = function(){
-	  this.ubicacion.X =  this.ubicacion.X - 1
-	}
+	  	this.ubicacion.X =  this.ubicacion.X - 1;
+	};
 
 	this.moverCuadradoDerecha = function(){
-	  this.ubicacion.X =  this.ubicacion.X + 1
-	}
+	  	this.ubicacion.X =  this.ubicacion.X + 1;
+	};
 
 	this.moverCuadradoAbajo = function(){
-	  this.ubicacion.Y =  this.ubicacion.Y + 1
-	}
+	  	this.ubicacion.Y =  this.ubicacion.Y + 1;
+	};
 };
 
 
