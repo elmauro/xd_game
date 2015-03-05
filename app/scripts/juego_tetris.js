@@ -7,6 +7,8 @@ window.onload = function () {
     var cursors;
     var rightdown;
     var leftdown;
+    var updown;
+    var down;
 
 
     function preload() {
@@ -57,11 +59,26 @@ window.onload = function () {
 
         if (cursors.up.isDown)
         {
+            if(updown) return;
             
+            updown = true;
+            bloque.rotarCuadros();   
         }
-        else if (cursors.down.isDown)
+        else if (cursors.up.isUp)
         {
+            updown = false;
+        }
+
+        if (cursors.down.isDown)
+        {
+            if(down) return;
             
+            down = true;
+            bloque.desplazarBloqueAbajo();   
+        }
+        else if (cursors.down.isUp)
+        {
+            down = false;
         }
     }
 };

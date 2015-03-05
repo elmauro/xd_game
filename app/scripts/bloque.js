@@ -44,7 +44,7 @@ TETRIS.bloque = function () {
 	    this.color = {};
 	    this.tipobloque = tipobloque;
 	    thid.tipomovimiento = {};
-	    this.tiporotacion =  this.tipo_rotacion[1];
+	    this.tiporotacion =  this.tipo_rotacion[0];
 	    this.anteriorrot = {};
 	    this.cuadros = [];
 	    this.detenido = false;
@@ -57,7 +57,7 @@ TETRIS.bloque = function () {
 	    this.color = {};
 	    this.tipobloque = {};
 	    this.tipomovimiento = {};
-	    this.tiporotacion =  this.tipo_rotacion[1];
+	    this.tiporotacion =  this.tipo_rotacion[0];
 	    this.anteriorrot = {};
 	    this.cuadros = [];
 	    this.detenido = false;
@@ -76,32 +76,53 @@ TETRIS.bloque = function () {
 
 	this.desplazarBloqueIzquierda = function(){
 	  //if tablero_tetris:PuedeDesplazarse(bloque.enumTipoMovimiento[1], self.cuadros) {
-	    this.ocultarBloque()
+		    this.ocultarBloque()
 
-	    i = 0
-	    while(i < 4) {
-	      this.cuadros[i].moverCuadradoIzquierda();
-	      i = i + 1
-	    }
+		    i = 0
+		    while(i < 4) {
+		      this.cuadros[i].moverCuadradoIzquierda();
+		      i = i + 1
+		    }
 
-	    this.mostrarBloque();
-	    this.ubicacion = this.cuadros[0].ubicacion;
+		    this.mostrarBloque();
+		    this.ubicacion = this.cuadros[0].ubicacion;
 	  //}
 	}
 
 	this.desplazarBloqueDerecha = function(){
 	  //if tablero_tetris:PuedeDesplazarse(bloque.enumTipoMovimiento[1], self.cuadros) {
-	    this.ocultarBloque()
+		    this.ocultarBloque()
 
-	    i = 0
-	    while(i < 4) {
-	      this.cuadros[i].moverCuadradoDerecha();
-	      i = i + 1
-	    }
+		    i = 0
+		    while(i < 4) {
+		      this.cuadros[i].moverCuadradoDerecha();
+		      i = i + 1
+		    }
 
-	    this.mostrarBloque();
-	    this.ubicacion = this.cuadros[0].ubicacion;
+		    this.mostrarBloque();
+		    this.ubicacion = this.cuadros[0].ubicacion;
 	  //}
+	}
+
+	this.desplazarBloqueAbajo = function(){
+		//if (tablero_tetris.PuedeDesplazarse(bloque.enumTipoMovimiento[3], self.cuadros)) {
+			this.ocultarBloque();
+
+			i = 0
+			while(i < 4) {
+				this.cuadros[i].moverCuadradoAbajo();
+				i = i + 1;
+			}
+
+			this.mostrarBloque()
+			this.ubicacion = this.cuadros[0].ubicacion;
+		/*}
+		else
+		{
+			tablero_tetris:IngresarCuadradosMatriz(self.cuadros)
+			tetris:DetenerCuadrado()
+			self.detenido = true*/
+		//}
 	}
 
 	this.crearUbicacionCuadros = function(){
@@ -183,15 +204,299 @@ TETRIS.bloque = function () {
 	  	}
 	}
 
+	this.rotarCuadros = function(){
+		if (this.detenido == false) {
+			anterior1 = this.cuadros[0].ubicacion;
+			anterior2 = this.cuadros[1].ubicacion;
+			anterior3 = this.cuadros[2].ubicacion;
+			anterior4 = this.cuadros[3].ubicacion;
+			anteriorrot = this.tiporotacion;
+
+			this.ocultarBloque();
+
+			nuevarot = 0
+			nuevarot = this.tipo_rotacion.indexOf(this.tiporotacion) + 1
+
+			if (nuevarot > 3) {
+				nuevarot = 0;
+			}
+
+			this.tiporotacion = this.tipo_rotacion[nuevarot];
+
+			if (this.tipobloque == "J") {
+				this.rotarJ(this.tiporotacion);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}
+			else if (this.tipobloque == "L") {
+				this.rotarL(this.tiporotacion);
+				//this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}	
+			else if (this.tipobloque == "Z") {
+				this.rotarZ(this.tiporotacion);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}
+			else if (this.tipobloque == "T") {
+				this.rotarT(this.tiporotacion);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}
+			else if (this.tipobloque == "S") {
+				this.rotarS(this.tiporotacion);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}
+			else if (this.tipobloque == "LINEA") {
+				this.rotarLinea(this.tiporotacion);
+				this.revertir(anterior1, anterior2, anterior3, anterior4, anteriorrot);
+			}
+
+			this.mostrarBloque();
+		}
+	}
+
+	this.revertir = function(anterior1, anterior2, anterior3, anterior4, anteriorRot){
+		//if (tablero_tetris.PuedeRotar(self.cuadros) == false) {
+			this.cuadros[0].ubicacion = anterior1;
+			this.cuadros[1].ubicacion = anterior2;
+			this.cuadros[2].ubicacion = anterior3;
+			this.cuadros[3].ubicacion = anterior4;
+			this.tiporotacion = anteriorRot;
+		//}
+	}
+
+	this.rotarJ = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoIzquierda();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoArriba();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoArribaUnoDerecha();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoDerecha();
+			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
+		}
+	}
+
+	this.rotarL = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoDerechaUnoAbajo();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoIzquierda();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoDerecha();
+			this.cuadros[3].ubicacion = this.unoArribaUnoDerecha();
+		}
+	}
+
+	this.rotarZ = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
+			this.cuadros[3].ubicacion = this.unoDerecha();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoArribaUnoDerecha();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
+			this.cuadros[3].ubicacion = this.unoDerecha();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoArribaUnoDerecha();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+	}
+
+	this.rotarS = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierdaUnoAbajo();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoArribaUnoIzquierda();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+	}
+
+	this.rotarT = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoIzquierda();
+			this.cuadros[3].ubicacion = this.unoAbajo();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoIzquierda();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoDerecha();
+			this.cuadros[2].ubicacion = this.unoIzquierda();
+			this.cuadros[3].ubicacion = this.unoArriba();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.unoDerecha();
+		}
+	}
+
+	this.rotarRotarLinea = function(rot){
+		if (rot == "NORTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.dosAbajo();
+		}
+		else if (rot == "ORIENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoDerecha();
+			this.cuadros[3].ubicacion = this.dosDerecha();
+		}
+		else if (rot == "SUR") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoArriba();
+			this.cuadros[2].ubicacion = this.unoAbajo();
+			this.cuadros[3].ubicacion = this.dosAbajo();
+		}
+		else if (rot == "OCCIDENTE") {
+			this.cuadros[0].ubicacion = this.ubicacion;
+			this.cuadros[1].ubicacion = this.unoIzquierda();
+			this.cuadros[2].ubicacion = this.unoDerecha();
+			this.cuadros[3].ubicacion = this.dosDerecha();
+		}
+	}
+
 	this.unoArriba = function(){
 		return { X:this.ubicacion.X, Y:this.ubicacion.Y - 40 };
+	}
+
+	this.unoArribaUnoDerecha = function(){
+	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y - 40 };
+	}
+
+	this.unoArribaUnoIzquierda = function(){
+	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y - 40 };
 	}
 
 	this.unoAbajo = function(){
 		return { X:this.ubicacion.X, Y:this.ubicacion.Y + 40 };
 	}
 
+	this.dosAbajo = function(){
+	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (40 * 2) };
+	}
+
+	this.dosAbajoUnoDerecha = function(){
+	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y + (40 * 2) };
+	}
+
+	this.dosAbajoUnoIzquierda = function(){
+	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y + (40 * 2) };
+	}
+
+	this.tresAbajo = function(){
+	  return { X:this.ubicacion.X, Y:this.ubicacion.Y + (40 * 3) };
+	}
+
+	this.unoDerecha = function(){
+	  return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y }
+	}
+
+	this.dosDerecha = function(){
+	  return { X:this.ubicacion.X + (40 * 2), Y:this.ubicacion.Y };
+	}
+
+	this.tresDerecha = function(){
+	  return { X:this.ubicacion.X + (40 * 3), Y:this.ubicacion.Y }
+	}
+
 	this.unoDerechaUnoAbajo = function(){
 		return { X:this.ubicacion.X + 40, Y:this.ubicacion.Y + 40 };
+	}
+
+	this.dosDerechaUnoAbajo = function(){
+	  return { X:this.ubicacion.X + (40 * 2), Y:this.ubicacion.Y + 40 }
+	}
+
+	this.unoIzquierda = function(){
+	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y }
+	}
+
+	this.dosIzquierda = function(){
+	  return { X:this.ubicacion.X - (40 * 2), Y:this.ubicacion.Y }
+	}
+
+	this.tresIzquierda = function(){
+	  return { X:this.ubicacion.X - (40 * 3), Y:this.ubicacion.Y }
+	}
+
+	this.unoIzquierdaUnoAbajo = function(){
+	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y + 40 }
+	}
+
+	this.unoIzquierdaUnoArriba = function(){
+	  return { X:this.ubicacion.X - 40, Y:this.ubicacion.Y - 40 }
+	}
+
+	this.dosIzquierdaUnoAbajo = function(){
+	  return { X:this.ubicacion.X - (40 * 2), Y:this.ubicacion.Y + 40 }
 	}
 };
