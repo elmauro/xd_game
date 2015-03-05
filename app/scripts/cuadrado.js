@@ -1,19 +1,17 @@
 TETRIS.cuadrado = function () {
 	this.self;
-	this.game;
 	this.tamano;
 	this.color;
 	this.ubicacion;
 
-	this.crear = function (game, tamano, color) {
-		this.game = game;
+	this.crear = function (tamano, color) {
 		this.tamano = tamano;
 		this.color = color;
 		this.ubicacion = {};
 	};
 
 	this.mostrar = function () {
-		this.self = this.game.add.sprite(this.ubicacion.X * this.tamano, this.ubicacion.Y * this.tamano, this.color);
+		this.self = game.add.sprite(this.ubicacion.X * this.tamano, this.ubicacion.Y * this.tamano, this.color);
 	};
 
 	this.ocultar = function () {

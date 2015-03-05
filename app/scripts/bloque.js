@@ -33,13 +33,10 @@ TETRIS.bloque = function () {
 	];
 
 	this.self;
-	this.game;
 	this.ubicacion;
 	this.cuadros;
 	
-	this.crear = function (game, ubicacion, tipobloque) {
-		this.game = game;
-		
+	this.crear = function (ubicacion, tipobloque) {
 		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y }
 	    this.color = {};
 	    this.tipobloque = tipobloque;
@@ -50,9 +47,7 @@ TETRIS.bloque = function () {
 	    this.detenido = false;
 	};
 
-	this.crearAleatorio = function (game, ubicacion) {
-		this.game = game;
-		
+	this.crearAleatorio = function (ubicacion) {
 		this.ubicacion =  { X:ubicacion.X, Y:ubicacion.Y }
 	    this.color = {};
 	    this.tipobloque = {};
@@ -70,7 +65,7 @@ TETRIS.bloque = function () {
 	    proximo = 6
 	  }
 
-	  this.tipobloque = this.tipo_bloque[0];
+	  this.tipobloque = this.tipo_bloque[proximo];
 	  this.crearUbicacionCuadros()
 	}
 
@@ -132,10 +127,10 @@ TETRIS.bloque = function () {
 		cuadrado3 = new TETRIS.cuadrado();
 		cuadrado4 = new TETRIS.cuadrado();
 
-		cuadrado1.crear(this.game, 40, this.color)
-		cuadrado2.crear(this.game, 40, this.color)
-		cuadrado3.crear(this.game, 40, this.color)
-		cuadrado4.crear(this.game, 40, this.color)
+		cuadrado1.crear(40, this.color)
+		cuadrado2.crear(40, this.color)
+		cuadrado3.crear(40, this.color)
+		cuadrado4.crear(40, this.color)
 
 		this.cuadros.push(cuadrado1);
 		this.cuadros.push(cuadrado2);

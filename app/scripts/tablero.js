@@ -123,6 +123,7 @@ TETRIS.tablero = function () {
 	}
 
 	this.redibujar = function(){
+		game = new Phaser.Game(400, 800, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
 		//color = display.newRect(0,0,display.contentWidth,display.contentHeight)
 		//color:setFillColor(255,255,255)
 
