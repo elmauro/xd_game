@@ -8,10 +8,10 @@ TETRIS.tablero = function () {
 	this.matriz = {};
 
 	this.crear = function () {
-		this.tamanocuadro = 10;
-		this.LIMITE_ABAJO = 31;
+		this.tamanocuadro = 40;
+		this.LIMITE_ABAJO = 20;
 		this.LIMITE_IZQUIERDO = -1;
-		this.LIMITE_DERECHO = 16;
+		this.LIMITE_DERECHO = 10;
 		this.LIMITE_ARRIBA = -5;
 
 		this.matriz = {};
@@ -94,13 +94,13 @@ TETRIS.tablero = function () {
 		for (y = this.LIMITE_ABAJO - 1; y > 0; y--) {
 			filallena = 0;
 			
-			for (x = this.LIMITE_IZQUIERDO + 1; y > this.LIMITE_DERECHO; y--) {
+			for (x = this.LIMITE_IZQUIERDO + 1; x < this.LIMITE_DERECHO; x++) {
 				if (this.matriz[x][y] != null) {
 					filallena = filallena + 1;
 				}
 			}
 
-			if (filallena == 21) {
+			if (filallena == 10) {
 				return y;
 			}
 		}
@@ -109,8 +109,16 @@ TETRIS.tablero = function () {
 	};
 
 	this.eliminarFilaLlena = function(fila){
+		for (i=0; i < 10; i++) {
+			for (j=0; j < 20; j++) {
+				if (this.matriz[i][j]!= null) {
+					this.matriz[i][j].ocultar();
+				}
+			}
+		}
+
 		for (y = fila - 1; y > 1; y--) {
-			for (x = this.LIMITE_IZQUIERDO + 1; x > this.LIMITE_DERECHO; x--) {
+			for (x = this.LIMITE_IZQUIERDO + 1; x < this.LIMITE_DERECHO - 1; x++) {
 				this.matriz[x][fila] = this.matriz[x][y];
 
 				if (this.matriz[x][fila]!= null) {
@@ -123,10 +131,6 @@ TETRIS.tablero = function () {
 	};
 
 	this.redibujar = function(){
-		game = new Phaser.Game(400, 800, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
-		//color = display.newRect(0,0,display.contentWidth,display.contentHeight)
-		//color:setFillColor(255,255,255)
-
 		for (i=0; i < 10; i++) {
 			for (j=0; j < 20; j++) {
 				if (this.matriz[i][j]!= null) {
