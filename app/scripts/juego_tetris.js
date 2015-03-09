@@ -1,3 +1,18 @@
+TETRIS.juego = function () {
+    this.detenerCuadrado = function(){
+        y = tablero_tetris.consultarFilaLlena();
+
+        if (y != -1) {
+            tablero_tetris.eliminarFilaLlena(y);
+        }
+
+        bloque = new TETRIS.bloque();
+        bloque.crearAleatorio({ X:5, Y:1 });
+        bloque.aleatorio();
+        bloque.mostrarBloque();
+    };
+};
+
 window.onload = function () {
     // variables del juego
     game = new Phaser.Game(400, 800, Phaser.AUTO, 'game', {preload: preload, create: create, update: update});
@@ -22,6 +37,7 @@ window.onload = function () {
 
     function create() {
         //personaje
+        juego_tetris = new TETRIS.juego();
         tablero_tetris = new TETRIS.tablero();
         tablero_tetris.crear();
 
@@ -31,6 +47,14 @@ window.onload = function () {
         bloque.mostrarBloque();
 
         cursors = game.input.keyboard.createCursorKeys();
+
+        timer = game.time.create(false);
+        timer.loop(800, updateCounter, this);
+        timer.start();
+    };
+
+    function updateCounter() {
+        bloque.desplazarBloqueAbajo();
     };
     
     function update() {

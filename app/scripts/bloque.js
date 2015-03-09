@@ -115,7 +115,7 @@ TETRIS.bloque = function () {
 		else
 		{
 			tablero_tetris.ingresarCuadradosMatriz(this.cuadros);
-			//tetris:DetenerCuadrado()
+			juego_tetris.detenerCuadrado();
 			this.detenido = true;
 		}
 	};
