@@ -4,12 +4,15 @@ TETRIS.juego = function () {
 
         if (y != -1) {
             tablero_tetris.eliminarFilaLlena(y);
+            this.detenerCuadrado();
         }
-
-        bloque = new TETRIS.bloque();
-        bloque.crearAleatorio({ X:5, Y:1 });
-        bloque.aleatorio();
-        bloque.mostrarBloque();
+        else
+        {
+            bloque = new TETRIS.bloque();
+            bloque.crearAleatorio({ X:5, Y:1 });
+            bloque.aleatorio();
+            bloque.mostrarBloque();
+        }
     };
 };
 
